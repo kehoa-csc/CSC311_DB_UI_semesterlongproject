@@ -178,6 +178,7 @@ public class DB_GUI_Controller implements Initializable {
         major.setText(p.getMajor());
         email.setText(p.getEmail());
         imageURL.setText(p.getImageURL());
+        editDeleteCheck();
     }
 
     public void lightTheme(ActionEvent actionEvent) {
