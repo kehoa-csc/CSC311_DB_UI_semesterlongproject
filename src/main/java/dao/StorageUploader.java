@@ -17,7 +17,7 @@ public class StorageUploader {
 
     public void uploadFile(String filePath, String blobName) {
         BlobClient blobClient = containerClient.getBlobClient(blobName);
-        blobClient.uploadFromFile(filePath);
+        blobClient.uploadFromFile(filePath,true);
     }
     public BlobContainerClient getContainerClient(){
         return containerClient;
