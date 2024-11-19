@@ -33,6 +33,18 @@ import java.time.LocalDate;
 import java.util.Optional;
 import java.util.ResourceBundle;
 
+enum majors {
+    Computer_Science,
+    CPIS,
+    Dentistry,
+    English,
+    Economics,
+    Electrical_Engineering,
+    Horticulture,
+    Nursing,
+    Sports_Management
+}
+
 public class DB_GUI_Controller implements Initializable {
 
     StorageUploader store= new StorageUploader();
