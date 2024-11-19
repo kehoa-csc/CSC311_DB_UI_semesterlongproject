@@ -56,9 +56,12 @@ public class DB_GUI_Controller implements Initializable {
     @FXML
     Button deleteButton;
     @FXML
+    Button addButton;
+    @FXML
     ProgressBar progressBar;
 
     boolean canModify = false;
+    boolean canAdd = false;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -75,19 +78,30 @@ public class DB_GUI_Controller implements Initializable {
         }
         editButton.setDisable(!canModify);
         deleteButton.setDisable(!canModify);
+        addButton.setDisable(!canAdd);
     }
 
     @FXML
-    protected void editDeleteCheck() {
+    protected void textBoxCheck() {
         canModify =
                 !(first_name.getText().isEmpty() ||
                         last_name.getText().isEmpty() ||
                         department.getText().isEmpty() ||
                         major.getText().isEmpty() ||
                         email.getText().isEmpty());
+        canAdd =
+                (!first_name.getText().isEmpty() &&
+                        !last_name.getText().isEmpty() &&
+                        !department.getText().isEmpty() &&
+                        !major.getText().isEmpty() &&
+                        !email.getText().isEmpty());
+
         editButton.setDisable(!canModify);
         deleteButton.setDisable(!canModify);
+        addButton.setDisable(!canAdd);
     }
+
+
 
     @FXML
     protected void addNewRecord() {
@@ -110,7 +124,7 @@ public class DB_GUI_Controller implements Initializable {
         major.setText("");
         email.setText("");
         imageURL.setText("");
-        editDeleteCheck();
+        textBoxCheck();
     }
 
     @FXML
@@ -194,7 +208,7 @@ public class DB_GUI_Controller implements Initializable {
         major.setText(p.getMajor());
         email.setText(p.getEmail());
         imageURL.setText(p.getImageURL());
-        editDeleteCheck();
+        textBoxCheck();
     }
 
     public void lightTheme(ActionEvent actionEvent) {
