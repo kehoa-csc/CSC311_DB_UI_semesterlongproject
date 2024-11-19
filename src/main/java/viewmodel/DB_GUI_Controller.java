@@ -38,7 +38,9 @@ public class DB_GUI_Controller implements Initializable {
     StorageUploader store= new StorageUploader();
 
     @FXML
-    TextField first_name, last_name, department, major, email, imageURL;
+    TextField first_name, last_name, department, email, imageURL;
+    @FXML
+    ComboBox<String> major_drop;
     @FXML
     ImageView img_view;
     @FXML
@@ -65,6 +67,8 @@ public class DB_GUI_Controller implements Initializable {
     MenuItem deleteItem;
     @FXML
     ProgressBar progressBar;
+    @FXML
+    TextField statusText;
 
     boolean canModify = false;
     boolean canAdd = false;
@@ -91,13 +95,13 @@ public class DB_GUI_Controller implements Initializable {
                 !(first_name.getText().isEmpty() ||
                         last_name.getText().isEmpty() ||
                         department.getText().isEmpty() ||
-                        major.getText().isEmpty() ||
+                        major_drop.getValue().isEmpty() ||
                         email.getText().isEmpty());
         canAdd =
                 (!first_name.getText().isEmpty() &&
                         !last_name.getText().isEmpty() &&
                         !department.getText().isEmpty() &&
-                        !major.getText().isEmpty() &&
+                        !major_drop.getValue().isEmpty() &&
                         !email.getText().isEmpty());
 
         editButton.setDisable(!canModify);
@@ -114,7 +118,7 @@ public class DB_GUI_Controller implements Initializable {
     protected void addNewRecord() {
 
             Person p = new Person(first_name.getText(), last_name.getText(), department.getText(),
-                    major.getText(), email.getText(), imageURL.getText());
+                    major_drop.getValue(), email.getText(), imageURL.getText());
             cnUtil.insertUser(p);
             cnUtil.retrieveId(p);
             p.setId(cnUtil.retrieveId(p));
@@ -128,7 +132,7 @@ public class DB_GUI_Controller implements Initializable {
         first_name.setText("");
         last_name.setText("");
         department.setText("");
-        major.setText("");
+        major_drop.setValue("");
         email.setText("");
         imageURL.setText("");
         textBoxCheck();
@@ -171,7 +175,7 @@ public class DB_GUI_Controller implements Initializable {
         Person p = tv.getSelectionModel().getSelectedItem();
         int index = data.indexOf(p);
         Person p2 = new Person(index + 1, first_name.getText(), last_name.getText(), department.getText(),
-                major.getText(), email.getText(),  imageURL.getText());
+                major_drop.getValue(), email.getText(),  imageURL.getText());
         cnUtil.editUser(p.getId(), p2);
         data.remove(p);
         data.add(index, p2);
@@ -212,7 +216,7 @@ public class DB_GUI_Controller implements Initializable {
         first_name.setText(p.getFirstName());
         last_name.setText(p.getLastName());
         department.setText(p.getDepartment());
-        major.setText(p.getMajor());
+        major_drop.setValue(p.getMajor());
         email.setText(p.getEmail());
         imageURL.setText(p.getImageURL());
         textBoxCheck();
