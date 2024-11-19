@@ -34,7 +34,7 @@ public class MainApplication extends Application {
     private void showScene1() {
         try {
             Parent root = FXMLLoader.load(getClass().getResource("/view/splashscreen.fxml"));
-            Scene scene = new Scene(root, 900, 600);
+            Scene scene = new Scene(root, 900, 620);
             scene.getStylesheets().add(getClass().getResource("/css/lightTheme.css").toExternalForm());
             primaryStage.setScene(scene);
             primaryStage.show();

@@ -95,6 +95,13 @@ public class DB_GUI_Controller implements Initializable {
             tv_major.setCellValueFactory(new PropertyValueFactory<>("major"));
             tv_email.setCellValueFactory(new PropertyValueFactory<>("email"));
             tv.setItems(data);
+
+            String curr;
+            for(majors m: majors.values()) {
+                curr = m.toString();
+                curr = curr.replace('_',' ');
+                major_drop.getItems().add(curr);
+            }
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
