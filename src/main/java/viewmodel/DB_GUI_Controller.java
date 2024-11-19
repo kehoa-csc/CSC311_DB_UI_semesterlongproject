@@ -58,6 +58,12 @@ public class DB_GUI_Controller implements Initializable {
     @FXML
     Button addButton;
     @FXML
+    MenuItem newItem;
+    @FXML
+    MenuItem editItem;
+    @FXML
+    MenuItem deleteItem;
+    @FXML
     ProgressBar progressBar;
 
     boolean canModify = false;
@@ -76,9 +82,7 @@ public class DB_GUI_Controller implements Initializable {
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
-        editButton.setDisable(!canModify);
-        deleteButton.setDisable(!canModify);
-        addButton.setDisable(!canAdd);
+        textBoxCheck();
     }
 
     @FXML
@@ -99,6 +103,9 @@ public class DB_GUI_Controller implements Initializable {
         editButton.setDisable(!canModify);
         deleteButton.setDisable(!canModify);
         addButton.setDisable(!canAdd);
+        newItem.setDisable(!canAdd);
+        editItem.setDisable(!canModify);
+        deleteItem.setDisable(!canModify);
     }
 
 
@@ -231,7 +238,7 @@ public class DB_GUI_Controller implements Initializable {
             Stage stage = (Stage) menuBar.getScene().getWindow();
             Scene scene = stage.getScene();
             scene.getStylesheets().clear();
-            scene.getStylesheets().add(getClass().getResource("/css/darkTheme.css").toExternalForm());
+            scene.getStylesheets().add(getClass().getResource("/css/ak-darkmode.css").toExternalForm());
         } catch (Exception e) {
             e.printStackTrace();
         }
