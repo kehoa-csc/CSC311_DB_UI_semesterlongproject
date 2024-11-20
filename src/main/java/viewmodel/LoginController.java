@@ -8,19 +8,47 @@ import javafx.geometry.Side;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Label;
+import javafx.scene.control.PasswordField;
+import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.layout.*;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.util.Scanner;
 
 
 public class LoginController {
 
+    @FXML
+    TextField usernameTextField;
+    @FXML
+    PasswordField passwordField;
+
+    boolean valid = false;
+    FileReader fr;
+    Scanner sc;
+    //FileWriter fw = new FileWriter("src/main/resources/logins.txt");
 
     @FXML
     private GridPane rootpane;
+
+    @FXML
+    private Label topLabel;
+
     public void initialize() {
+        try {
+             fr = new FileReader("src/main/resources/logins.txt");
+             sc = new Scanner(fr);
+        } catch (FileNotFoundException e) {
+            System.out.println("Logins file not found. Cannot proceed with login.");
+        }
+
         rootpane.setBackground(new Background(
                         createImage("https://edencoding.com/wp-content/uploads/2021/03/layer_06_1920x1080.png"),
                         null,
@@ -31,12 +59,12 @@ public class LoginController {
                 )
         );
 
-
         rootpane.setOpacity(0);
         FadeTransition fadeOut2 = new FadeTransition(Duration.seconds(10), rootpane);
         fadeOut2.setFromValue(0);
         fadeOut2.setToValue(1);
         fadeOut2.play();
+
     }
     private static BackgroundImage createImage(String url) {
         return new BackgroundImage(
@@ -47,6 +75,22 @@ public class LoginController {
     }
     @FXML
     public void login(ActionEvent actionEvent) {
+
+        String[] login = new String[2];
+        String[] loginScan = new String[2];
+        login[0] = usernameTextField.getText();
+        login[1] = passwordField.getText();
+
+        while(sc.hasNextLine()) {
+            loginScan[0] = sc.nextLine();
+            loginScan[1] = sc.nextLine();
+
+            if(login[0].equals(loginScan[0]) && login[1].equals(loginScan[1])) {
+                valid = true;
+                break;
+            }
+        }
+
         try {
             Parent root = FXMLLoader.load(getClass().getResource("/view/db_interface_gui.fxml"));
             Scene scene = new Scene(root, 900, 600);

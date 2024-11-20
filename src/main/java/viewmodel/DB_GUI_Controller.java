@@ -33,6 +33,8 @@ import java.time.LocalDate;
 import java.util.Optional;
 import java.util.ResourceBundle;
 
+import static dao.DbConnectivityClass.status;
+
 enum majors {
     Computer_Science,
     CPIS,
@@ -144,6 +146,7 @@ public class DB_GUI_Controller implements Initializable {
             data.add(p);
             clearForm();
 
+            statusText.setText(status);
     }
 
     @FXML

@@ -8,6 +8,7 @@ import service.MyLogger;
 import java.sql.*;
 public class DbConnectivityClass {
     final static String DB_NAME="csc311_bd_temp";
+    public static String status = "";
         MyLogger lg= new MyLogger();
         final String SQL_SERVER_URL = "jdbc:mysql://csc311kehoeserver.mysql.database.azure.com";
         final String DB_URL = SQL_SERVER_URL+"/"+DB_NAME;
@@ -163,6 +164,7 @@ public class DbConnectivityClass {
                 int row = preparedStatement.executeUpdate();
                 if (row > 0) {
                     lg.makeLog("A new user was inserted successfully.");
+                    status = "A new user was inserted successfully.";
                 }
                 preparedStatement.close();
                 conn.close();
