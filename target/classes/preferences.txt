@@ -1,2 +1,5 @@
-darkmode:
+*begin
+tux
+darkmode
 1
+*end

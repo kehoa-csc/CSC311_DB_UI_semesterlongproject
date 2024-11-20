@@ -33,7 +33,9 @@ public class LoginController {
     boolean valid = false;
     FileReader fr;
     Scanner sc;
-    //FileWriter fw = new FileWriter("src/main/resources/logins.txt");
+    FileWriter fw;
+
+    int attempts = 0;
 
     @FXML
     private GridPane rootpane;
@@ -60,7 +62,7 @@ public class LoginController {
         );
 
         rootpane.setOpacity(0);
-        FadeTransition fadeOut2 = new FadeTransition(Duration.seconds(10), rootpane);
+        FadeTransition fadeOut2 = new FadeTransition(Duration.seconds(7), rootpane);
         fadeOut2.setFromValue(0);
         fadeOut2.setToValue(1);
         fadeOut2.play();
@@ -75,13 +77,23 @@ public class LoginController {
     }
     @FXML
     public void login(ActionEvent actionEvent) {
+        valid = false;
+        attempts++;
+        if (attempts >= 10) {
+            topLabel.setText("Too many attempts. Please try again later.");
+            return;
+        }
+        System.out.println("Checking login...");
+        topLabel.setText("Checking login...");
 
         String[] login = new String[2];
         String[] loginScan = new String[2];
         login[0] = usernameTextField.getText();
         login[1] = passwordField.getText();
 
+        sc.reset();
         while(sc.hasNextLine()) {
+            System.out.println("checking attempt " + attempts);
             loginScan[0] = sc.nextLine();
             loginScan[1] = sc.nextLine();
 
@@ -90,21 +102,47 @@ public class LoginController {
                 break;
             }
         }
+        if (!valid) {
 
-        try {
-            Parent root = FXMLLoader.load(getClass().getResource("/view/db_interface_gui.fxml"));
-            Scene scene = new Scene(root, 900, 600);
-            scene.getStylesheets().add(getClass().getResource("/css/lightTheme.css").toExternalForm());
-            Stage window = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
-            window.setScene(scene);
-            window.show();
-        } catch (Exception e) {
-            e.printStackTrace();
+            topLabel.setText("Invalid username or password. (Attempt "+attempts+")");
+            System.out.println("Invalid username or password. (Attempt "+attempts+")");
+        } else {
+            topLabel.setText("Valid login! Loading...");
+            System.out.println("Valid login! Loading...");
+            try {
+                Parent root = FXMLLoader.load(getClass().getResource("/view/db_interface_gui.fxml"));
+                System.out.println("Loading FXML...");
+                Scene scene = new Scene(root, 900, 600);
+                System.out.println("Making scene...");
+                scene.getStylesheets().add(getClass().getResource("/css/lightTheme.css").toExternalForm());
+                System.out.println("Loading CSS...");
+                Stage window = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
+                System.out.println("Setting scene...");
+                window.setScene(scene);
+                System.out.println("Showing window...");
+                window.show();
+                window.toFront();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
         }
+
+
     }
 
-    public void signUp(ActionEvent actionEvent) {
+    public void signUp(ActionEvent actionEvent) throws IOException {
+
+        System.out.println("signup");
         try {
+            fw = new FileWriter("src/main/resources/logins.txt");
+        } catch (IOException e) {
+            System.out.println("Logins file not found. Cannot proceed with signup.");
+        }
+
+        fw.write("test");
+        fw.append('t');
+
+        /*try {
             Parent root = FXMLLoader.load(getClass().getResource("/view/signUp.fxml"));
             Scene scene = new Scene(root, 900, 600);
             scene.getStylesheets().add(getClass().getResource("/css/lightTheme.css").toExternalForm());
@@ -113,7 +151,9 @@ public class LoginController {
             window.show();
         } catch (Exception e) {
             e.printStackTrace();
-        }
+        }*/
+
+
     }
 
 
