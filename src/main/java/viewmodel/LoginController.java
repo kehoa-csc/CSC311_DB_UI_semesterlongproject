@@ -36,6 +36,7 @@ public class LoginController {
     FileWriter fw;
 
     int attempts = 0;
+    public static String currUser;
 
     @FXML
     private GridPane rootpane;
@@ -76,7 +77,7 @@ public class LoginController {
                 new BackgroundSize(BackgroundSize.AUTO, BackgroundSize.AUTO, true, true, false, true));
     }
     @FXML
-    public void login(ActionEvent actionEvent) {
+    public void login(ActionEvent actionEvent) throws FileNotFoundException {
         valid = false;
         attempts++;
         if (attempts >= 10) {
@@ -91,7 +92,8 @@ public class LoginController {
         login[0] = usernameTextField.getText();
         login[1] = passwordField.getText();
 
-        sc.reset();
+        fr = new FileReader("src/main/resources/logins.txt");
+        sc = new Scanner(fr);
         while(sc.hasNextLine()) {
             System.out.println("checking attempt " + attempts);
             loginScan[0] = sc.nextLine();
@@ -103,16 +105,16 @@ public class LoginController {
             }
         }
         if (!valid) {
-
             topLabel.setText("Invalid username or password. (Attempt "+attempts+")");
             System.out.println("Invalid username or password. (Attempt "+attempts+")");
         } else {
             topLabel.setText("Valid login! Loading...");
             System.out.println("Valid login! Loading...");
+            currUser = login[0];
             try {
                 Parent root = FXMLLoader.load(getClass().getResource("/view/db_interface_gui.fxml"));
                 System.out.println("Loading FXML...");
-                Scene scene = new Scene(root, 900, 600);
+                Scene scene = new Scene(root, 920, 620);
                 System.out.println("Making scene...");
                 scene.getStylesheets().add(getClass().getResource("/css/lightTheme.css").toExternalForm());
                 System.out.println("Loading CSS...");
@@ -134,14 +136,16 @@ public class LoginController {
 
         System.out.println("signup");
         try {
-            fw = new FileWriter("src/main/resources/logins.txt");
+            fw = new FileWriter("src/main/resources/logins.txt",true);
         } catch (IOException e) {
             System.out.println("Logins file not found. Cannot proceed with signup.");
         }
 
-        fw.write("test");
-        fw.append('t');
 
+        fw.write(usernameTextField.getText() + "\n");
+        fw.write(passwordField.getText() + "\n");
+        fw.close();
+        topLabel.setText("Signup successful! You can now use this login.");
         /*try {
             Parent root = FXMLLoader.load(getClass().getResource("/view/signUp.fxml"));
             Scene scene = new Scene(root, 900, 600);

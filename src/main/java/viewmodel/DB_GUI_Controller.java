@@ -116,13 +116,13 @@ public class DB_GUI_Controller implements Initializable {
                 !(first_name.getText().isEmpty() ||
                         last_name.getText().isEmpty() ||
                         department.getText().isEmpty() ||
-                        major_drop.getValue().isEmpty() ||
+                        major_drop.getValue().isBlank() ||
                         email.getText().isEmpty());
         canAdd =
                 (!first_name.getText().isEmpty() &&
                         !last_name.getText().isEmpty() &&
                         !department.getText().isEmpty() &&
-                        !major_drop.getValue().isEmpty() &&
+                        !major_drop.getValue().isBlank() &&
                         !email.getText().isEmpty());
 
         editButton.setDisable(!canModify);
@@ -158,13 +158,15 @@ public class DB_GUI_Controller implements Initializable {
         email.setText("");
         imageURL.setText("");
         textBoxCheck();
+        status = "Cleared details.";
+        statusText.setText(status);
     }
 
     @FXML
     protected void logOut(ActionEvent actionEvent) {
         try {
             Parent root = FXMLLoader.load(getClass().getResource("/view/login.fxml"));
-            Scene scene = new Scene(root, 900, 600);
+            Scene scene = new Scene(root, 920, 620);
             scene.getStylesheets().add(getClass().getResource("/css/lightTheme.css").getFile());
             Stage window = (Stage) menuBar.getScene().getWindow();
             window.setScene(scene);
