@@ -53,3 +53,16 @@
 .scroll-bar{
     -fx-opacity: 0;
 }
+
+.progress-bar{
+    -fx-background-color: #444444;
+}
+
+.progress-indicator{
+    -fx-text-fill: #dddddd;
+}
+
+.combo-box{
+    -fx-background-color: #555555;
+    -fx-text-fill: #dddddd;
+}
