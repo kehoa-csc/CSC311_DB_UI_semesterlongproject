@@ -79,19 +79,24 @@ public class LoginController {
     @FXML
     public void login(ActionEvent actionEvent) throws FileNotFoundException {
         valid = false;
-        attempts++;
+        //Stop accepting after 10 attempts
         if (attempts >= 10) {
             topLabel.setText("Too many attempts. Please try again later.");
             return;
-        }
+        } else {attempts++;}
+
         System.out.println("Checking login...");
         topLabel.setText("Checking login...");
-
+        //Check if fields are blank, if so break and inform user
+        if (usernameTextField.getText().isEmpty() || passwordField.getText().isEmpty()) {
+            topLabel.setText("Username or password is empty. Please try again.");
+            return;
+        }
         String[] login = new String[2];
         String[] loginScan = new String[2];
         login[0] = usernameTextField.getText();
         login[1] = passwordField.getText();
-
+        //Reading from file to see if login is there
         fr = new FileReader("src/main/resources/logins.txt");
         sc = new Scanner(fr);
         while(sc.hasNextLine()) {
@@ -107,7 +112,7 @@ public class LoginController {
         if (!valid) {
             topLabel.setText("Invalid username or password. (Attempt "+attempts+")");
             System.out.println("Invalid username or password. (Attempt "+attempts+")");
-        } else {
+        } else { //If valid
             topLabel.setText("Valid login! Loading...");
             System.out.println("Valid login! Loading...");
             currUser = login[0];
@@ -141,11 +146,14 @@ public class LoginController {
             System.out.println("Logins file not found. Cannot proceed with signup.");
         }
 
-
-        fw.write(usernameTextField.getText() + "\n");
-        fw.write(passwordField.getText() + "\n");
-        fw.close();
-        topLabel.setText("Signup successful! You can now use this login.");
+        if (usernameTextField.getText().isEmpty() || passwordField.getText().isEmpty()) {
+            topLabel.setText("Provide signup details.");
+        } else {
+            fw.write(usernameTextField.getText() + "\n");
+            fw.write(passwordField.getText() + "\n");
+            fw.close();
+            topLabel.setText("Signup successful! You can now use this login.");
+        }
         /*try {
             Parent root = FXMLLoader.load(getClass().getResource("/view/signUp.fxml"));
             Scene scene = new Scene(root, 900, 600);

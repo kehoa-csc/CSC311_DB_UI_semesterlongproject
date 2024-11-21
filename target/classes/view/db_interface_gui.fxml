@@ -47,6 +47,13 @@
                                 <MenuItem mnemonicParsing="false" onAction="#darkTheme" styleClass="menu_items" text="Dark Theme" />
                             </items>
                         </Menu>
+                  <Menu mnemonicParsing="false" text="Data">
+                    <items>
+                      <MenuItem mnemonicParsing="false" text="Import CSV..." />
+                        <MenuItem mnemonicParsing="false" text="Export CSV..." />
+                        <MenuItem mnemonicParsing="false" text="Formatting Help" />
+                    </items>
+                  </Menu>
                         <Menu mnemonicParsing="false" styleClass="menu_options" text="Help">
                             <items>
                                 <MenuItem mnemonicParsing="false" onAction="#displayAbout" styleClass="menu_items" text="User Guide" />
@@ -66,7 +73,7 @@
                                         <Image url="@../images/profile.png" />
                                     </image>
                                 </ImageView>
-                        <ProgressIndicator layoutX="78.0" layoutY="132.0" progress="0.0" style="-fx-effect: #0000ff;" />
+                        <ProgressIndicator layoutX="78.0" layoutY="132.0" opacity="0.0" progress="0.0" style="-fx-effect: #0000ff;" />
                             </children>
                         </AnchorPane>
                     </children>
