@@ -12,6 +12,7 @@
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.control.TextField?>
+<?import javafx.scene.control.Tooltip?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
@@ -124,21 +125,33 @@
                             <VBox.margin>
                                 <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
                             </VBox.margin>
+                     <tooltip>
+                        <Tooltip text="Clears the Entry fields above." />
+                     </tooltip>
                         </Button>
                         <Button fx:id="addButton" mnemonicParsing="false" onAction="#addNewRecord" styleClass="db_btn" text="Add">
                             <VBox.margin>
                                 <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
                             </VBox.margin>
+                     <tooltip>
+                        <Tooltip text="Add a person into the table with the entries in the boxes." />
+                     </tooltip>
                         </Button>
                         <Button fx:id="deleteButton" mnemonicParsing="false" onAction="#deleteRecord" styleClass="db_btn" text="Delete">
                             <VBox.margin>
                                 <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
                             </VBox.margin>
+                     <tooltip>
+                        <Tooltip text="Delete the selected user." />
+                     </tooltip>
                         </Button>
                         <Button fx:id="editButton" mnemonicParsing="false" onAction="#editRecord" styleClass="db_btn" text="Edit">
                             <VBox.margin>
                                 <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
                             </VBox.margin>
+                     <tooltip>
+                        <Tooltip text="Edit the details of the selected user with the details in the text fields above." />
+                     </tooltip>
                         </Button>
                     </children>
                 </VBox>

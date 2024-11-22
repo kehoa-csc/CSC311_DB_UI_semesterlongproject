@@ -33,6 +33,8 @@ import java.awt.*;
 import java.io.*;
 import java.net.URL;
 import java.nio.file.Files;
+import java.sql.SQLException;
+import java.sql.SQLIntegrityConstraintViolationException;
 import java.time.LocalDate;
 import java.util.Optional;
 import java.util.ResourceBundle;
@@ -354,15 +356,22 @@ public class DB_GUI_Controller implements Initializable {
         //Scanner sc = new Scanner(new File("src/main/resources/csvtest.csv"));
         Scanner sc = new Scanner(file);
         sc.nextLine();
-        while (sc.hasNextLine()) {
-            String line = sc.nextLine();
-            String[] parts = line.split(",");
-            cnUtil.insertUser(new Person(parts[0],parts[1],parts[2],parts[3],parts[4],""));
-        }
-        sc.close();
+        try {
+            while (sc.hasNextLine()) {
+                String line = sc.nextLine();
+                if (!line.isEmpty()) {
+                    String[] parts = line.split(",");
+                    cnUtil.insertUser(new Person(parts[0], parts[1], parts[2], parts[3], parts[4], ""));
+                }
+            }
+            status = "Imported CSV successfully.";
 
-        status = "Imported CSV successfully.";
+        } catch (Exception e) {
+            status = "Error importing CSV. Do you have duplicate entries?";
+        }
         statusText.setText(status);
+        sc.close();
+        tv.setItems(cnUtil.getData());
     }
 
     @FXML
