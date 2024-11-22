@@ -350,25 +350,35 @@ public class DB_GUI_Controller implements Initializable {
     @FXML
     protected void importCsv() throws FileNotFoundException {
         System.out.println("importCsv");
-        Scanner sc = new Scanner(new File("src/main/resources/csvtest.csv"));
+        File file = (new FileChooser()).showOpenDialog(img_view.getScene().getWindow());
+        //Scanner sc = new Scanner(new File("src/main/resources/csvtest.csv"));
+        Scanner sc = new Scanner(file);
         sc.nextLine();
         while (sc.hasNextLine()) {
-            //System.out.println("in loop");
             String line = sc.nextLine();
             String[] parts = line.split(",");
-            /*for (int i = 0; i < parts.length; i++) {
-                //parts[i] = parts[i].trim();
-                System.out.println(parts[i]);
-            }*/
             cnUtil.insertUser(new Person(parts[0],parts[1],parts[2],parts[3],parts[4],""));
         }
         sc.close();
+
+        status = "Imported CSV successfully.";
+        statusText.setText(status);
     }
 
     @FXML
-    protected void exportCsv() throws FileNotFoundException {
+    protected void exportCsv() throws IOException {
         System.out.println("exportCsv");
+        FileWriter fw = new FileWriter("src/main/resources/export.csv");
+        File file = new File("src/main/resources/export.csv");
+        file.createNewFile();
 
+        fw.write("firstname,lastname,department,major,email\n");
+        fw.write(cnUtil.stringAllUsers());
+
+        status = "Exported to " + file.getAbsolutePath();
+        statusText.setText(status);
+
+        fw.close();
     }
 
     @FXML

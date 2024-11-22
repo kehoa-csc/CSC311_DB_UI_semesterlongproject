@@ -149,6 +149,36 @@ public class DbConnectivityClass {
             }
         }
 
+    public String stringAllUsers() {
+        connectToDatabase();
+        try {
+            Connection conn = DriverManager.getConnection(DB_URL, USERNAME, PASSWORD);
+            String sql = "SELECT * FROM users ";
+            PreparedStatement preparedStatement = conn.prepareStatement(sql);
+
+            ResultSet resultSet = preparedStatement.executeQuery();
+            String toReturn = "";
+            while (resultSet.next()) {
+                int id = resultSet.getInt("id");
+                String first_name = resultSet.getString("first_name");
+                String last_name = resultSet.getString("last_name");
+                String department = resultSet.getString("department");
+                String major = resultSet.getString("major");
+                String email = resultSet.getString("email");
+
+                toReturn = toReturn + (first_name + "," + last_name + "," + department + "," + major + "," + email + "\n");
+            }
+
+            preparedStatement.close();
+            conn.close();
+            //toReturn = toReturn.substring(0, toReturn.lastIndexOf("\n"));
+            return toReturn;
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
         public void insertUser(Person person) {
             connectToDatabase();
             try {

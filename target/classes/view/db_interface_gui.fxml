@@ -50,7 +50,7 @@
                   <Menu mnemonicParsing="false" text="Data">
                     <items>
                       <MenuItem mnemonicParsing="false" onAction="#importCsv" text="Import CSV..." />
-                        <MenuItem mnemonicParsing="false" text="Export CSV..." />
+                        <MenuItem mnemonicParsing="false" onAction="#exportCsv" text="Export CSV..." />
                         <MenuItem mnemonicParsing="false" onAction="#formatDoc" text="Formatting Help" />
                     </items>
                   </Menu>
