@@ -401,4 +401,19 @@ public class DB_GUI_Controller implements Initializable {
         File htmlFile = new File("docs/index.html");
         Desktop.getDesktop().browse(htmlFile.toURI());
     }
+
+    @FXML
+    protected void copyEntry() {
+        Person p = tv.getSelectionModel().getSelectedItem();
+        tv.getSelectionModel().clearSelection();
+        p.setFirstName(first_name.getText()+"_copy");
+        p.setLastName(last_name.getText()+"_copy");
+        p.setEmail(email.getText()+"_copy");
+        cnUtil.insertUser(p);
+
+        status = "Copied user successfully.";
+        statusText.setText(status);
+        tv.refresh();
+        //tv.setItems(cnUtil.getData());
+    }
 }
