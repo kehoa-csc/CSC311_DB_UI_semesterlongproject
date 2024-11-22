@@ -96,6 +96,11 @@
                            </tooltip></ProgressIndicator>
                             </children>
                         </AnchorPane>
+                  <ImageView fitHeight="264.0" fitWidth="184.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../images/fsclong.png" />
+                     </image>
+                  </ImageView>
                     </children>
                 </VBox>
             </left>
