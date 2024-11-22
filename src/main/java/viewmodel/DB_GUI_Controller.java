@@ -14,6 +14,11 @@ import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
+import javafx.scene.control.Button;
+import javafx.scene.control.Dialog;
+import javafx.scene.control.MenuBar;
+import javafx.scene.control.MenuItem;
+import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -24,14 +29,14 @@ import javafx.stage.Stage;
 import model.Person;
 import service.MyLogger;
 
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.OutputStream;
+import java.awt.*;
+import java.io.*;
 import java.net.URL;
 import java.nio.file.Files;
 import java.time.LocalDate;
 import java.util.Optional;
 import java.util.ResourceBundle;
+import java.util.Scanner;
 
 import static dao.DbConnectivityClass.status;
 
@@ -54,6 +59,8 @@ public class DB_GUI_Controller implements Initializable {
     @FXML
     TextField first_name, last_name, department, email, imageURL;
     @FXML
+    MenuItem newItem, editItem, deleteItem;
+    @FXML
     ComboBox<String> major_drop;
     @FXML
     ImageView img_view;
@@ -73,12 +80,6 @@ public class DB_GUI_Controller implements Initializable {
     Button deleteButton;
     @FXML
     Button addButton;
-    @FXML
-    MenuItem newItem;
-    @FXML
-    MenuItem editItem;
-    @FXML
-    MenuItem deleteItem;
     @FXML
     ProgressBar progressBar;
     @FXML
@@ -127,13 +128,14 @@ public class DB_GUI_Controller implements Initializable {
 
         editButton.setDisable(!canModify);
         deleteButton.setDisable(!canModify);
+        editItem.setDisable(!canModify);
+        deleteItem.setDisable(!canModify);
+        newItem.setDisable(!canAdd);
         addButton.setDisable(!canAdd);
         newItem.setDisable(!canAdd);
         editItem.setDisable(!canModify);
         deleteItem.setDisable(!canModify);
     }
-
-
 
     @FXML
     protected void addNewRecord() {
@@ -345,4 +347,39 @@ public class DB_GUI_Controller implements Initializable {
         };
     }
 
+    @FXML
+    protected void importCsv() throws FileNotFoundException {
+        System.out.println("importCsv");
+        Scanner sc = new Scanner(new File("src/main/resources/csvtest.csv"));
+        sc.nextLine();
+        while (sc.hasNextLine()) {
+            //System.out.println("in loop");
+            String line = sc.nextLine();
+            String[] parts = line.split(",");
+            /*for (int i = 0; i < parts.length; i++) {
+                //parts[i] = parts[i].trim();
+                System.out.println(parts[i]);
+            }*/
+            cnUtil.insertUser(new Person(parts[0],parts[1],parts[2],parts[3],parts[4],""));
+        }
+        sc.close();
+    }
+
+    @FXML
+    protected void exportCsv() throws FileNotFoundException {
+        System.out.println("exportCsv");
+
+    }
+
+    @FXML
+    protected void formatDoc() throws IOException {
+        File htmlFile = new File("docs/csv-guide.html");
+        Desktop.getDesktop().browse(htmlFile.toURI());
+    }
+
+    @FXML
+    protected void helpDoc() throws IOException {
+        File htmlFile = new File("docs/index.html");
+        Desktop.getDesktop().browse(htmlFile.toURI());
+    }
 }

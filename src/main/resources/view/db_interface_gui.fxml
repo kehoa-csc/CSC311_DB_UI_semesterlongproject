@@ -49,14 +49,14 @@
                         </Menu>
                   <Menu mnemonicParsing="false" text="Data">
                     <items>
-                      <MenuItem mnemonicParsing="false" text="Import CSV..." />
+                      <MenuItem mnemonicParsing="false" onAction="#importCsv" text="Import CSV..." />
                         <MenuItem mnemonicParsing="false" text="Export CSV..." />
-                        <MenuItem mnemonicParsing="false" text="Formatting Help" />
+                        <MenuItem mnemonicParsing="false" onAction="#formatDoc" text="Formatting Help" />
                     </items>
                   </Menu>
                         <Menu mnemonicParsing="false" styleClass="menu_options" text="Help">
                             <items>
-                                <MenuItem mnemonicParsing="false" onAction="#displayAbout" styleClass="menu_items" text="User Guide" />
+                                <MenuItem mnemonicParsing="false" onAction="#helpDoc" styleClass="menu_items" text="User Guide" />
                         <MenuItem mnemonicParsing="false" onAction="#displayAbout" styleClass="menu_items" text="About" />
                             </items>
                         </Menu>
